@@ -1,0 +1,25 @@
+{
+  "name": "rhyolights-twitch-daemon",
+  "version": "1.0.0",
+  "description": "Rhyolight's Twitch Daemon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhyolight/rhyolights-twitch-daemon.git"
+  },
+  "keywords": [
+    "twitch"
+  ],
+  "author": "Matt Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rhyolight/rhyolights-twitch-daemon/issues"
+  },
+  "homepage": "https://github.com/rhyolight/rhyolights-twitch-daemon#readme",
+  "dependencies": {
+    "tmi.js": "^1.4.2"
+  }
+}
