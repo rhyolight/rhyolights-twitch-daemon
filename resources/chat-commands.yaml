@@ -1,0 +1,17 @@
+---
+'!faq':
+  text: >
+    Read the FAQ: https://gist.github.com/rhyolight/4c64640533fd78ef74daabae73a346c0
+
+
+'!numenta':
+  text: >
+    rhyolight_ works for Numenta as the Open Source Community Manager. Read more about Numenta's public technology at https://numenta.org.
+
+'!htm':
+  text: |
+    HTM is Hierarchical Temporal Memory. Read more at https://numenta.org/hierarchical-temporal-memory/.
+
+'!htmschool':
+  text: |
+    HTM School is a video series that introduces HTM. See all the episodes and their descriptions at https://numenta.org/htm-school/.
