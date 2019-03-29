@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+}
+
+.bar {
+    margin-right: inherit !important;
+    padding: 0 20px;
+    position:fixed;
+    left: 0;
+    right: 0;
+    background-color: #00ccff;
+    color: black;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 16pt;
+}
+
+#header {
+    top: 0;
+    border-bottom: 2px solid #004ca0;
+}
+
+#header img {
+    width: 40px;
+    height: 40px;
+    margin-right: 4px;
+}
+
+#footer {
+    border-top: 2px solid #004ca0;
+    bottom: 0;
+}
+
+.time {
+    font-style: italic;
+    text-align: center;
+}
+
+.viewers {
+    font-style: italic;
+    text-align: right;
+}

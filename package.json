@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/rhyolight/rhyolights-twitch-daemon#readme",
   "dependencies": {
+    "express": "^4.16.4",
     "js-yaml": "^3.13.0",
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0",
     "tmi.js": "^1.4.2"
   }
 }

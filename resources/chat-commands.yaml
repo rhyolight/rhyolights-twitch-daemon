@@ -19,6 +19,9 @@
     HTM School is a video series that introduces HTM. See all the
     episodes and their descriptions at https://numenta.org/htm-school/.
 
+'!corticalio':
+  text: "https://cortical.io"
+
 '!youtube':
   text: "https://www.youtube.com/HTMSchool"
 

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const jsyaml = require('js-yaml')
+const startServer = require('./src/http-server')
 
 const BOT_USERNAME = process.env.BOT_USERNAME
 const OAUTH_TOKEN = process.env.OAUTH_TOKEN
@@ -14,3 +15,4 @@ let chatbot = new Chatbot(
 )
 
 chatbot.start()
+startServer()
