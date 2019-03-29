@@ -6,15 +6,18 @@
 
 '!numenta':
   text: >
-    Visit https://numenta.com for information about Numenta. rhyolight_ works for Numenta as the Open Source Community Manager.
+    Visit https://numenta.com for information about Numenta.
+    rhyolight_ works for Numenta as the Open Source Community Manager.
 
 '!htm':
   text: |
-    HTM stands for Hierarchical Temporal Memory. Read more at https://numenta.org/hierarchical-temporal-memory/.
+    HTM stands for Hierarchical Temporal Memory. Read more at
+    https://numenta.org/hierarchical-temporal-memory/.
 
 '!htmschool':
   text: |
-    HTM School is a video series that introduces HTM. See all the episodes and their descriptions at https://numenta.org/htm-school/.
+    HTM School is a video series that introduces HTM. See all the
+    episodes and their descriptions at https://numenta.org/htm-school/.
 
 '!youtube':
   text: "https://www.youtube.com/HTMSchool"
@@ -33,3 +36,20 @@
 
 '!htmforum':
   text: "https://discourse.numenta.org/"
+
+'!double':
+  text: >
+    I use a telepresence robot from Double Robotics: https://www.doublerobotics.com.
+
+'!funfri':
+  text: >
+    FUN FRIDAY! I'll be live-coding HTM side-projects, investigating
+    community codebases, or building Twitch interactions. Or something else.
+    But it has to be fun!
+
+'!work':
+  text: >
+    Today rhyolight_ is streaming a work session. He may not have time to take
+    off-topic questions and comments. It is hard to stay focused on the job at
+    hand on Twitch. Please don't take offense! Post your question on !discord
+    or !htmforum and he'll get back to you later.
