@@ -4,7 +4,7 @@
   "description": "Rhyolight's Twitch Daemon",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,10 @@
   },
   "homepage": "https://github.com/rhyolight/rhyolights-twitch-daemon#readme",
   "dependencies": {
+    "express": "^4.16.4",
     "js-yaml": "^3.13.0",
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0",
     "tmi.js": "^1.4.2"
   }
 }

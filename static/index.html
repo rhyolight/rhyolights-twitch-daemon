@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
+</head>
+<body>
+
+<script src="/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="/bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/bower_components/bootstrap/dist/js/bootstrap.bundle.js" type="text/javascript"></script>
+<script src="/bower_components/moment/min/moment.min.js" type="text/javascript"></script>
+
+
+<div id="header" class="row bar">
+    <div class="col-3"><img src="/img/github-icon.png"/>rhyolight</div>
+    <div class="col-3"><img src="/img/twitter-icon.png"/>rhyolight</div>
+    <div class="col-3"><img src="/img/youtube-icon.png"/>htmschool</div>
+    <div class="col-3"><img src="/img/numenta-icon.png"/></span>numenta.org</div>
+</div>
+
+<div id="footer" class="row bar">
+    <marquee class="col-7" id="stream-title"></marquee>
+    <div class="col-3 time">streaming <span id="stream-time"></span></div>
+    <div class="col-2 viewers"><span id="stream-viewer_count"></span> viewers</div>
+</div>
+
+
+<script src="/js/socket.io.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(() => {
+        let socket = io();
+
+        function renderStream(stream) {
+            if (!stream) return
+            Object.keys(stream).forEach(k => {
+                $('#stream-' + k).html(stream[k])
+            })
+            let startedAt = moment(stream.started_at)
+            let duration = moment.duration(moment().diff(startedAt))
+            $('#stream-time').html(duration.humanize())
+        }
+
+        socket.on('connect', function() {
+            console.log('connect cb')
+        });
+        socket.on('stream', function(stream) {
+            console.log('got update from client:')
+            console.log(stream)
+            renderStream(stream)
+        });
+        socket.on('disconnect', function() {
+            console.log('disconnect cb')
+        });
+
+    })
+
+</script>
+
+</body>
+</html>
