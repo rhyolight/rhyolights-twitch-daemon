@@ -11,7 +11,10 @@
 
 '!research':
   text: >
-    You're watching a live Numenta research meeting. These meetings have always been internal, but recently rhyolight_ has convinced Jeff to live stream his view of the meetings on Twitch. These meetings are view into how scientific research is done at Numenta.
+    You're watching a live Numenta research meeting. These meetings have always been
+    internal, but recently rhyolight_ has convinced Jeff to live stream his view of the
+    meetings on Twitch. These meetings are a view into how scientific research is done
+    at Numenta.
 
 '!htm':
   text: |
