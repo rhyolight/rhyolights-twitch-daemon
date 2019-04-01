@@ -61,6 +61,12 @@
     hand on Twitch. Please don't take offense! Post your question on !discord
     or !htmforum and he'll get back to you later.
 
+'!aichat':
+  text: >
+    AI / Neuroscience Chat is a weekly show where Matt talks about a topic and 
+    takes questions and comments from viewers. Any brain or AI questions are welcome.
+    Topics are chosen beforehand and posted on https://www.twitch.tv/rhyolight_/events
+
 '!projects':
   text: >
     Project progress is tracked at https://trello.com/rhyolight
