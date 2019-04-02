@@ -26,7 +26,7 @@ class Twitch {
                 grant_type: 'client_credentials',
                 scope:'',
             }
-        };
+        }
         request.post(authUrl, opts, (error, resp, body) => {
             console.log('auth returned... storing access token')
             cb(body.access_token)

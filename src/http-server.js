@@ -21,13 +21,6 @@ app.use(bodyParser.json())
 let server = http.Server(app);
 let socket = io(server);
 
-// Global vars for server.
-let clientId = 'fmjgn1bqxpw7p0xgvryoe6027483ve'
-let clientSecret = process.env.CLIENT_SECRET || 's1u6yj9aexfmn7pp0vvgeiwfktbmar'
-
-// The Twitch user to monitor
-let targetLogin = 'rhyolight_'
-
 // This serves the static files for the JS client program.
 app.use(express.static('static'))
 
@@ -70,7 +63,7 @@ function startServer(twitch, login) {
     });
 }
 
-module.exports = () => {
+module.exports = (targetLogin, clientId, clientSecret) => {
 // Program start
     let twitch = new Twitch(clientId, clientSecret)
     startServer(twitch, targetLogin)
