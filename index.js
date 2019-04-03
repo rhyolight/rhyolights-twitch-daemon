@@ -11,8 +11,7 @@ const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
 
 // The Twitch user to monitor
-// let targetLogin = 'rhyolight_'
-let targetLogin = 'COSMOS'
+let targetLogin = 'rhyolight_'
 
 // let chatbot = new Chatbot(
 //     BOT_USERNAME,
@@ -22,7 +21,7 @@ let targetLogin = 'COSMOS'
 // )
 // chatbot.start()
 
-startServer(targetLogin, CLIENT_ID, CLIENT_SECRET)
+// startServer(targetLogin, CLIENT_ID, CLIENT_SECRET)
 
 let filePath = path.join(__dirname, 'obs-files')
 let liveStreamer = new LiveStreamer(
