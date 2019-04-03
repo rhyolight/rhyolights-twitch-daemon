@@ -40,7 +40,7 @@ class LiveStreamer {
     }
 
     _updateFilesFromStream(stream, path) {
-        // console.log(stream)
+        console.log(stream)
         Object.keys(streamWriters).forEach(name => {
             streamWriters[name](stream[name], path)
         })
@@ -55,13 +55,14 @@ class LiveStreamer {
             if (! token) throw new Error('Cannot get app token')
             twitch.getUser(me.targetLogin, (user) => {
                 function updateStream() {
+                    console.log('updating stream...')
                     twitch.getStream(user.login, (stream) => {
                         if (stream) me._updateFilesFromStream(stream, path)
                     })
                 }
                 updateStream()
                 // Every minute, poll for updated stream data
-                setTimeout(updateStream, 1000*60)
+                setInverval(updateStream, 1000*60)
             })
         })
     }
