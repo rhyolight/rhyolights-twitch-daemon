@@ -1,5 +1,25 @@
+const path = require('path')
 const fs = require('fs')
+const moment = require('moment')
+
 let Twitch = require('./twitch')
+
+const streamWriters = {
+    title: (title, dir) => {
+        let fd = path.join(dir, 'title.txt')
+        fs.writeFileSync(fd, `${title}                    `)
+    },
+    viewer_count: (viewers, dir) => {
+        let fd = path.join(dir, 'viewers.txt')
+        fs.writeFileSync(fd, `${viewers} viewers`)
+    },
+    started_at: (startedAt, dir) => {
+        let started = moment(startedAt)
+        let duration = moment.duration(moment().diff(started)).humanize()
+        let fd = path.join(dir, 'duration.txt')
+        fs.writeFileSync(fd, `streaming ${duration}`)
+    },
+}
 
 class LiveStreamer {
 
@@ -9,15 +29,22 @@ class LiveStreamer {
         this.clientSecret = clientSecret
     }
 
-    _prepFileFolder(path) {
-        // mkdir if doesn't exist
-        try {
-            fs.mkdirSync(path)
-        } catch (e) {}
+    _prepFileFolder(dir) {
+        if (fs.existsSync(dir)) {
+            fs.readdirSync(dir).forEach(file => {
+                console.log(file)
+                fs.unlinkSync(path.join(dir, file))
+            })
+        } else {
+            fs.mkdirSync(dir)
+        }
     }
 
-    _updateFilesFromStream(stream) {
-        console.log(stream)
+    _updateFilesFromStream(stream, path) {
+        // console.log(stream)
+        Object.keys(streamWriters).forEach(name => {
+            streamWriters[name](stream[name], path)
+        })
     }
 
     startFileStream(path) {
@@ -28,12 +55,14 @@ class LiveStreamer {
         twitch.authenticate((token) => {
             if (! token) throw new Error('Cannot get app token')
             twitch.getUser(me.targetLogin, (user) => {
-                // Every minute, poll for updated stream data
-                setTimeout(() => {
+                function updateStream() {
                     twitch.getStream(user.login, (stream) => {
-                        me._updateFilesFromStream(stream)
+                        if (stream) me._updateFilesFromStream(stream, path)
                     })
-                }, 1000*60)
+                }
+                updateStream()
+                // Every minute, poll for updated stream data
+                setTimeout(updateStream, 1000*60)
             })
         })
     }
