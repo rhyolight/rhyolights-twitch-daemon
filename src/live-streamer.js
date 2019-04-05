@@ -7,7 +7,7 @@ let Twitch = require('./twitch')
 const streamWriters = {
     title: (title, dir) => {
         let fd = path.join(dir, 'title.txt')
-        fs.writeFileSync(fd, `                      ${title}                      `)
+        fs.writeFileSync(fd, `${title}            `)
     },
     viewer_count: (viewers, dir) => {
         let fd = path.join(dir, 'viewers.txt')
