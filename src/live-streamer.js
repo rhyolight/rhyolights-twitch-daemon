@@ -30,11 +30,7 @@ class LiveStreamer {
     }
 
     _prepFileFolder(dir) {
-        if (fs.existsSync(dir)) {
-            fs.readdirSync(dir).forEach(file => {
-                fs.unlinkSync(path.join(dir, file))
-            })
-        } else {
+        if (! fs.existsSync(dir)) {
             fs.mkdirSync(dir)
         }
     }
