@@ -1,4 +1,8 @@
 const tmi = require('tmi.js');
+const parseDuration = require('parse-duration')
+
+// function stringSubTag(strings, argsExpr) {
+// }
 
 class Chatbot {
 
@@ -38,6 +42,13 @@ class Chatbot {
         this.client.say(target, `Available commands: ${cmds}`)
     }
 
+    countdown(target, time) {
+        console.log(time)
+        let duration = parseDuration(time)
+        let remaining = duration
+        this.client.say(target, `Starts in: ${remaining}ms`)
+    }
+
     onConnectedHandler(addr, port) {
         console.log(`* Connected to ${addr}:${port}`);
     }
@@ -47,29 +58,37 @@ class Chatbot {
         if (self) {
             return
         }
+        const args = msg.trim().split(/\s+/)
+        const commandName = args.shift();
 
-        // Remove whitespace from chat message
-        const commandName = msg.trim();
+        console.log(`Recieved message "${msg}"`)
+        console.log(`command: "${commandName}"`)
+        console.log(`args: ${args}`)
 
         // Ignore anything not starting with '!'
-        if (! commandName.startsWith('!')) {
+        if (!commandName.startsWith('!')) {
             return
         }
 
         // The '!commands' command is special
         if (commandName === '!commands') {
             this.listCommands(target)
+            // The '!countdown' command is special
+        } else if (commandName === '!countdown') {
+            this.countdown(target, args[0])
         } else {
             // If the command is known, let's execute it
             let cmd = this.commands[commandName];
             if (cmd) {
-                this.client.say(target, cmd.text)
+                let reply = cmd.text
+                this.client.say(target, reply)
                 console.log(`* Executed ${commandName} command`);
             } else {
                 console.log(`* Unknown command ${commandName}`);
             }
         }
     }
+
 }
 
 module.exports = Chatbot

@@ -21,14 +21,15 @@
   },
   "homepage": "https://github.com/rhyolight/rhyolights-twitch-daemon#readme",
   "dependencies": {
+    "chai": "^4.1.2",
     "express": "^4.16.4",
     "js-yaml": "^3.13.0",
+    "mocha": "^5.2.0",
     "moment": "^2.24.0",
+    "nyc": "^14.0.0",
+    "parse-duration": "^0.1.1",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
-    "tmi.js": "^1.4.2",
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
-    "nyc": "^14.0.0"
+    "tmi.js": "^1.4.2"
   }
 }
