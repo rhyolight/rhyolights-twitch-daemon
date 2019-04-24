@@ -12,9 +12,8 @@
 '!research':
   text: >
     You're watching a live Numenta research meeting. These meetings have always been
-    internal, but recently rhyolight_ has convinced Jeff to live stream his view of the
-    meetings on Twitch. These meetings are a view into how scientific research is done
-    at Numenta.
+    internal, but recently Matt convinced Jeff to live stream his view of the
+    meetings on Twitch. This is how scientific research is done at Numenta.
 
 '!htm':
   text: |
@@ -33,7 +32,7 @@
   text: "https://www.youtube.com/HTMSchool"
 
 '!github':
-  text: "https://github.com/rhyolight"
+  text: "https://github.com/rhyolight & https://github.com/htm-community"
 
 '!twitter':
   text: "https://twitter.com/rhyolight"
@@ -41,22 +40,16 @@
 '!discord':
   text: "https://discord.gg/nSG4eQq"
 
-'!htmforum':
+'!forum':
   text: "https://discourse.numenta.org/"
 
 '!double':
   text: >
     I use a telepresence robot from Double Robotics: https://www.doublerobotics.com.
 
-'!funfri':
+'!ot':
   text: >
-    FUN FRIDAY! I'll be live-coding HTM side-projects, investigating
-    community codebases, or building Twitch interactions. Or something else.
-    But it has to be fun!
-
-'!work':
-  text: >
-    Today rhyolight_ is streaming a work session. He may not have time to take
+    Matt is streaming a work session. He may not have time to take
     off-topic questions and comments. It is hard to stay focused on the job at
     hand on Twitch. Please don't take offense! Post your question on !discord
     or !htmforum and he'll get back to you later.
@@ -67,6 +60,6 @@
     takes questions and comments from viewers. Any brain or AI questions are welcome.
     Topics are chosen beforehand and posted on https://www.twitch.tv/rhyolight_/events
 
-'!projects':
+'!trello':
   text: >
     Project progress is tracked at https://trello.com/rhyolight

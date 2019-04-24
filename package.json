@@ -4,7 +4,8 @@
   "description": "Rhyolight's Twitch Daemon",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "nyc --reporter=html --reporter=text mocha tests --recursive"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,9 @@
     "moment": "^2.24.0",
     "request": "^2.88.0",
     "socket.io": "^2.2.0",
-    "tmi.js": "^1.4.2"
+    "tmi.js": "^1.4.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^14.0.0"
   }
 }

@@ -3,3 +3,7 @@ run.sh
 .idea/
 node_modules/
 obs-files/
+.nyc_output/
+.vscode/
+coverage/
+
