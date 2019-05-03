@@ -4,6 +4,7 @@ const jsyaml = require('js-yaml')
 const startServer = require('./src/http-server')
 const Chatbot = require('./src/chatbot.js')
 const LiveStreamer = require('./src/live-streamer')
+let Twitch = require('./src/twitch')
 
 const BOT_USERNAME = process.env.BOT_USERNAME
 const OAUTH_TOKEN = process.env.OAUTH_TOKEN
@@ -25,9 +26,9 @@ chatbot.start()
 startServer(targetLogin, CLIENT_ID, CLIENT_SECRET)
 
 let filePath = path.join(__dirname, 'obs-files')
+let twitchClient = new Twitch(CLIENT_ID, CLIENT_SECRET)
 let liveStreamer = new LiveStreamer(
     targetLogin,
-    CLIENT_ID,
-    CLIENT_SECRET
+    twitchClient
 )
 liveStreamer.startFileStream(filePath)

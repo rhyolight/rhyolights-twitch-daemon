@@ -27,9 +27,29 @@ const mockPayload = {
 }
 
 describe('when livestreamer processes a stream payload', () => {
+    let stubClient = {
+        authenticate: (token) => {
+            
+        },
+        getStream: (login) => {
+
+        }
+    }
+    let liveStreamer = new LiveStreamer(
+        'targetLogin',
+        stubClient
+    )
+    let filePath = 'filePath'
+    liveStreamer.startFileStream(filePath)
 
     it('writes out a title.txt', () => {
-        // assert.fail('not complete yo')
+        // assert.fail('not implemented')
     })
 
+})
+
+describe('when startFileStream is called', () => {
+    it('calls updateStream at appropriate time intervals', () => {
+        // assert.fail('not implemented')
+    })
 })

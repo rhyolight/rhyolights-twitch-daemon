@@ -3,50 +3,18 @@
   text: >
     Read the FAQ: https://gist.github.com/rhyolight/4c64640533fd78ef74daabae73a346c0
 
-
+# Topics
 '!numenta':
   text: >
     Visit https://numenta.com for information about Numenta.
     rhyolight_ works for Numenta as the Open Source Community Manager.
-
-'!research':
-  text: >
-    You're watching a live Numenta research meeting. These meetings have always been
-    internal, but recently Matt convinced Jeff to live stream his view of the
-    meetings on Twitch. This is how scientific research is done at Numenta.
-
 '!htm':
   text: |
     HTM stands for Hierarchical Temporal Memory. Read more at
     https://numenta.org/hierarchical-temporal-memory/.
-
-'!htmschool':
-  text: |
-    HTM School is a video series that introduces HTM. See all the
-    episodes and their descriptions at https://numenta.org/htm-school/.
-
-'!corticalio':
-  text: "https://cortical.io"
-
-'!youtube':
-  text: "https://www.youtube.com/HTMSchool"
-
-'!github':
-  text: "https://github.com/rhyolight & https://github.com/htm-community"
-
-'!twitter':
-  text: "https://twitter.com/rhyolight"
-
-'!discord':
-  text: "https://discord.gg/nSG4eQq"
-
-'!forum':
-  text: "https://discourse.numenta.org/"
-
 '!double':
   text: >
     I use a telepresence robot from Double Robotics: https://www.doublerobotics.com.
-
 '!ot':
   text: >
     Matt is streaming a work session. He may not have time to take
@@ -54,12 +22,49 @@
     hand on Twitch. Please don't take offense! Post your question on !discord
     or !forum and he'll get back to you later.
 
+# Shows
+'!htmchat':
+  text: >
+    Casual work session, ask me anything! I'll be answering HTM Forum questions
+    or generally doing community-based work I would be doing anyway.
+'!bhtms':
+  text: >
+    Every Thursday I'll be live-coding https://github.com/htm-community/building-htm-systems, 
+    which is a WIP interactive document on Building HTM Systems. We'll be converting existing 
+    encoder docs into a stand-alone server using React and Next in Node JS. 
+    We'll also be hand-coding the Spatial Pooling and Temporal Memory algorithms of HTM. 
+'!research':
+  text: >
+    You're watching a live Numenta research meeting. These meetings have always been
+    internal, but recently Matt convinced Jeff to live stream his view of the
+    meetings on Twitch. This is how scientific research is done at Numenta.
 '!aichat':
   text: >
     AI / Neuroscience Chat is a weekly show where Matt talks about a topic and 
     takes questions and comments from viewers. Any brain or AI questions are welcome.
     Topics are chosen beforehand and posted on https://www.twitch.tv/rhyolight_/events
-
-'!trello':
+'!htmcommunity':
   text: >
-    Project progress is tracked at https://trello.com/rhyolight
+    Matt is working on open source HTM Community codebases today.
+
+# Links
+'!htmschool':
+  text: |
+    HTM School is a video series that introduces HTM. See all the
+    episodes and their descriptions at https://numenta.org/htm-school/.
+'!corticalio':
+  text: https://cortical.io
+'!youtube':
+  text: https://www.youtube.com/HTMSchool
+'!github':
+  text: https://github.com/rhyolight & https://github.com/htm-community
+'!twitter':
+  text: https://twitter.com/rhyolight
+'!discord':
+  text: https://discord.gg/nSG4eQq
+'!forum':
+  text: https://discourse.numenta.org/
+'!trello':
+  text: https://trello.com/rhyolight
+
+

@@ -2,12 +2,11 @@ const path = require('path')
 const fs = require('fs')
 const moment = require('moment')
 
-let Twitch = require('./twitch')
-
 const streamWriters = {
     title: (title, dir) => {
         let fd = path.join(dir, 'title.txt')
-        fs.writeFileSync(fd, `${title}\t\t\t\t`)
+        let parts = title.split('|')
+        fs.writeFileSync(fd, `${parts[0]}`)
     },
     viewer_count: (viewers, dir) => {
         let fd = path.join(dir, 'viewers.txt')
@@ -23,10 +22,9 @@ const streamWriters = {
 
 class LiveStreamer {
 
-    constructor(targetLogin, clientId, clientSecret) {
+    constructor(targetLogin, twitchClient) {
         this.targetLogin = targetLogin
-        this.clientId = clientId
-        this.clientSecret = clientSecret
+        this.twitchClient = twitchClient
     }
 
     _prepFileFolder(dir) {
@@ -46,7 +44,7 @@ class LiveStreamer {
         this._prepFileFolder(path)
 
         let me = this
-        let twitch = new Twitch(this.clientId, this.clientSecret)
+        let twitch = this.twitchClient
         twitch.authenticate((token) => {
             if (! token) throw new Error('Cannot get app token')
             twitch.getUser(me.targetLogin, (user) => {
