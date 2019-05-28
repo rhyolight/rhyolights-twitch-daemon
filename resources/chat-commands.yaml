@@ -4,35 +4,33 @@
     Read the FAQ: https://gist.github.com/rhyolight/4c64640533fd78ef74daabae73a346c0
 
 # Topics
+'!whoami':
+  text: >
+    Matt Taylor is Open Source Community Manager for Numenta. He is a professional software engineer and amateur brain science enthusiast. He created the !htmschool video series for !numenta.
+
 '!numenta':
   text: >
-    Visit https://numenta.com for information about Numenta.
-    rhyolight_ works for Numenta as the Open Source Community Manager.
+    Numenta's mission is twofold, (a) to understand how intelligence works in the mammalian brain, (b) to implement non-biological systems that work upon the same principles. Visit numenta.com for more information.
 '!htm':
   text: |
-    HTM stands for Hierarchical Temporal Memory. Read more at
-    https://numenta.org/hierarchical-temporal-memory/.
+    HTM stands for Hierarchical Temporal Memory. Learn all about HTM in !htmschool.
 '!double':
   text: >
-    I use a telepresence robot from Double Robotics: https://www.doublerobotics.com.
+    I use a telepresence robot from https://www.doublerobotics.com.
 '!ot':
   text: >
-    Matt is streaming a work session. He may not have time to take
+    Matt is working on something. He may not have time to take
     off-topic questions and comments. It is hard to stay focused on the job at
     hand on Twitch. Please don't take offense! Post your question on !discord
-    or !forum and he'll get back to you later.
+    or the !forum and he'll get back to you later.
 
 # Shows
 '!htmchat':
   text: >
-    Casual work session, ask me anything! I'll be answering HTM Forum questions
-    or generally doing community-based work I would be doing anyway.
+    Casual work session, ask me anything! I'll be answering HTM Forum questions or working on various community projects.
 '!bhtms':
   text: >
-    Every Thursday I'll be live-coding https://github.com/htm-community/building-htm-systems, 
-    which is a WIP interactive document on Building HTM Systems. We'll be converting existing 
-    encoder docs into a stand-alone server using React and Next in Node JS. 
-    We'll also be hand-coding the Spatial Pooling and Temporal Memory algorithms of HTM. 
+    Live-coding https://github.com/htm-community/building-htm-systems, which is an interactive tutorial on Building HTM Systems written in D3js and React. At least one live-stream a week will be !bhtms until the thing is DONE. See the latest deployment at https://building-htm-systems.herokuapp.com/.
 '!research':
   text: >
     You're watching a live Numenta research meeting. These meetings have always been
@@ -43,9 +41,6 @@
     AI / Neuroscience Chat is a weekly show where Matt talks about a topic and 
     takes questions and comments from viewers. Any brain or AI questions are welcome.
     Topics are chosen beforehand and posted on https://www.twitch.tv/rhyolight_/events
-'!htmcommunity':
-  text: >
-    Matt is working on open source HTM Community codebases today.
 
 # Links
 '!htmschool':
