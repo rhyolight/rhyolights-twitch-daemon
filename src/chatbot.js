@@ -1,7 +1,12 @@
-const tmi = require('tmi.js');
-const parseDuration = require('parse-duration')
+const fs = require('fs')
 const path = require('path')
+
+const tmi = require('tmi.js');
 const play = require('play')
+
+const parseDuration = require('parse-duration')
+
+const sounds = fs.readdirSync(path.join(__dirname, '../resources/sounds'))
 
 // function stringSubTag(strings, argsExpr) {
 // }
@@ -57,6 +62,13 @@ class Chatbot {
     play.sound(soundFile);
   }
 
+  listSounds(target) {
+    const soundList = sounds.map(f => {
+      return f.split('.').shift()
+    }).join(', ')
+    this.client.say(target, `Available sounds for !sound command: ${soundList}`)
+  }
+
   onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
   }
@@ -86,7 +98,13 @@ class Chatbot {
       this.countdown(target, args[0])
       // The '!sound' comamnd is special
     } else if (commandName === '!sound') {
-      this.playSound(args[0])
+      if (context.subscriber) {
+        this.playSound(args[0])
+      } else {
+        this.client.say('You must be a subscriber to play sounds.')
+      }
+    } else if (commandName === '!sounds') {
+      this.listSounds(target)
     } else {
       // If the command is known, let's execute it
       let cmd = this.commands[commandName];
