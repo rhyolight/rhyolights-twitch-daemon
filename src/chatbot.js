@@ -101,7 +101,7 @@ class Chatbot {
       if (context.subscriber) {
         this.playSound(args[0])
       } else {
-        this.client.say('You must be a subscriber to play sounds.')
+        this.client.say(target, 'You must be a subscriber to play sounds.')
       }
     } else if (commandName === '!sounds') {
       this.listSounds(target)
