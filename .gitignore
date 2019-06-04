@@ -6,4 +6,5 @@ obs-files/
 .nyc_output/
 .vscode/
 coverage/
+package-lock.json
 
