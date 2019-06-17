@@ -33,9 +33,7 @@
     Live-coding https://github.com/htm-community/building-htm-systems, which is an interactive tutorial on Building HTM Systems written in D3js and React. At least one live-stream a week will be !bhtms until the thing is DONE. See the latest deployment at https://building-htm-systems.herokuapp.com/.
 '!research':
   text: >
-    You're watching a live Numenta research meeting. These meetings have always been
-    internal, but recently Matt convinced Jeff to live stream his view of the
-    meetings on Twitch. This is how scientific research is done at Numenta.
+    You're watching a live Numenta research meeting. Ideas expressed in this meeting may not be comprehensive or fully understood. This is how scientific research is done at Numenta.
 '!aichat':
   text: >
     AI / Neuroscience Chat is a weekly show where Matt talks about a topic and 
