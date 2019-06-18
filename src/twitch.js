@@ -41,7 +41,12 @@ class Twitch {
             },
             qs: qs
         }, (error, resp, rawBody) => {
-            cb(JSON.parse(rawBody).data[0])
+						try {
+							cb(JSON.parse(rawBody).data[0])
+						} catch {
+							console.log('error parsing response body')
+							console.log(rawBody)
+						}
         })
     }
 

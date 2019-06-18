@@ -56,7 +56,7 @@ class LiveStreamer {
                 }
                 updateStream()
                 // Every minute, poll for updated stream data
-                setInterval(updateStream, 1000*60)
+                setInterval(updateStream, 1000*360)
             })
         })
     }
