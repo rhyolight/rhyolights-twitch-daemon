@@ -96,7 +96,7 @@ class Chatbot {
       // The '!countdown' command is special
     } else if (commandName === '!countdown') {
       this.countdown(target, args[0])
-      // The '!sound' comamnd is special
+      // The '!sound' command is special
     } else if (commandName === '!sound') {
       this.playSound(args[0])
       // if (context.subscriber) {
