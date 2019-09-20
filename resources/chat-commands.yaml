@@ -25,20 +25,9 @@
     or the !forum and he'll get back to you later.
 
 # Shows
-'!htmchat':
-  text: >
-    Casual work session, ask me anything! I'll be answering HTM Forum questions or working on various community projects.
 '!bhtms':
   text: >
     Live-coding https://github.com/htm-community/building-htm-systems, which is an interactive tutorial on Building HTM Systems written in D3js and React. At least one live-stream a week will be !bhtms until the thing is DONE. See the latest deployment at https://building-htm-systems.herokuapp.com/.
-'!research':
-  text: >
-    You're watching a live Numenta research meeting. Ideas expressed in this meeting may not be comprehensive or fully understood. This is how scientific research is done at Numenta.
-'!aichat':
-  text: >
-    AI / Neuroscience Chat is a weekly show where Matt talks about a topic and 
-    takes questions and comments from viewers. Any brain or AI questions are welcome.
-    Topics are chosen beforehand and posted on https://www.twitch.tv/rhyolight_/events
 
 # Links
 '!htmschool':
@@ -48,7 +37,7 @@
 '!corticalio':
   text: https://cortical.io
 '!youtube':
-  text: https://www.youtube.com/HTMSchool
+  text: https://www.youtube.com/OfficialNumenta
 '!github':
   text: https://github.com/rhyolight & https://github.com/htm-community
 '!twitter':

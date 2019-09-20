@@ -98,11 +98,12 @@ class Chatbot {
       this.countdown(target, args[0])
       // The '!sound' comamnd is special
     } else if (commandName === '!sound') {
-      if (context.subscriber) {
-        this.playSound(args[0])
-      } else {
-        this.client.say(target, 'You must be a subscriber to play sounds.')
-      }
+      this.playSound(args[0])
+      // if (context.subscriber) {
+      //   this.playSound(args[0])
+      // } else {
+      //   this.client.say(target, 'You must be a subscriber to play sounds.')
+      // }
     } else if (commandName === '!sounds') {
       this.listSounds(target)
     } else {
