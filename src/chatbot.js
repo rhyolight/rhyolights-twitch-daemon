@@ -13,11 +13,12 @@ const sounds = fs.readdirSync(path.join(__dirname, '../resources/sounds'))
 
 class Chatbot {
 
-  constructor(name, channel, oath, commands) {
+  constructor(name, channel, oath, commands, obsClient) {
     this.name = name
     this.channel = channel
     this.oath = oath
     this.commands = commands
+    this.obsClient = obsClient
   }
 
   start() {
@@ -69,6 +70,14 @@ class Chatbot {
     this.client.say(target, `Available sounds for !sound command: ${soundList}`)
   }
 
+  mindBlown() {
+    // this.playSound('mindblown')
+    this.obsClient.activateSource('SCREEN', 'Mind Blown')
+    setTimeout(() => {
+      this.obsClient.deactivateSource('SCREEN', 'Mind Blown')
+    }, 5000)
+  }
+
   onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
   }
@@ -106,6 +115,8 @@ class Chatbot {
       // }
     } else if (commandName === '!sounds') {
       this.listSounds(target)
+    } else if (commandName === '!mindblown') {
+      this.mindBlown()
     } else {
       // If the command is known, let's execute it
       let cmd = this.commands[commandName];
