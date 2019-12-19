@@ -6,6 +6,8 @@ const play = require('play')
 
 const parseDuration = require('parse-duration')
 
+const DebateMonitor = require('./debate-monitor')
+
 const sounds = fs.readdirSync(path.join(__dirname, '../resources/sounds'))
 
 // function stringSubTag(strings, argsExpr) {
@@ -13,12 +15,13 @@ const sounds = fs.readdirSync(path.join(__dirname, '../resources/sounds'))
 
 class Chatbot {
 
-  constructor(name, channel, oath, commands, obsClient) {
+  constructor(name, channel, oath, commands, obsClient, twitchClient) {
     this.name = name
     this.channel = channel
     this.oath = oath
     this.commands = commands
     this.obsClient = obsClient
+    this.debateMonitor = new DebateMonitor('obs-files/debate.yml', twitchClient)
   }
 
   start() {
@@ -42,7 +45,10 @@ class Chatbot {
     });
 
     // Connect to Twitch:
-    client.connect();
+    client.connect()
+
+    // Initialize debate monitor
+    this.debateMonitor.init()
   }
 
   listCommands(target) {
@@ -112,6 +118,12 @@ class Chatbot {
       this.obsClient.mindblown()
     } else if (commandName === '!window') {
       this.obsClient.window()
+    } else if (commandName === '!vote') {
+      let me = this
+      this.debateMonitor.vote(args, context, function(output) {
+        console.log(output)
+        me.client.say(target, output)
+      })
     } else {
       // If the command is known, let's execute it
       let cmd = this.commands[commandName];

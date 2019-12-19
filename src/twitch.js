@@ -3,6 +3,7 @@ let request = require('request')
 let authUrl = 'https://id.twitch.tv/oauth2/token'
 let userUrl = 'https://api.twitch.tv/helix/users'
 let streamUrl = 'https://api.twitch.tv/helix/streams'
+let usersFollowsUrl = 'https://api.twitch.tv/helix/users/follows'
 
 class Twitch {
 
@@ -48,6 +49,13 @@ class Twitch {
 							console.log(rawBody)
 						}
         })
+    }
+
+    userFollows(to, from, cb) {
+      this._getRequest(usersFollowsUrl, {
+        to_id: to,
+        from_id: from,
+      }, cb)
     }
 
     getUser(login, cb) {

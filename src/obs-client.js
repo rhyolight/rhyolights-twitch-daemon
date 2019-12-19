@@ -2,8 +2,7 @@ const OBSWebSocket = require('obs-websocket-js')
 
 class ObsClient {
 
-  constructor(/*name, channel, oath, commands*/chatbot) {
-    this.chatbot = chatbot
+  constructor() {
     this.obs = new OBSWebSocket();
   }
 
@@ -57,9 +56,9 @@ class ObsClient {
 
   mindblown() {
     let me = this
-    me.activateSource('Mind Blown')
+    me.activateSource('Mindblown')
     setTimeout(() => {
-      me.deactivateSource('Mind Blown')
+      me.deactivateSource('Mindblown')
     }, 18500)
   }
 

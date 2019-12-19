@@ -14,6 +14,8 @@ const CHANNEL_NAME = process.env.CHANNEL_NAME
 const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_SECRET = process.env.CLIENT_SECRET
 
+let twitchClient = new Twitch(CLIENT_ID, CLIENT_SECRET)
+
 // The Twitch user to monitor
 let targetLogin = 'rhyolight_'
 
@@ -23,7 +25,8 @@ let chatbot = new Chatbot(
     CHANNEL_NAME,
     OAUTH_TOKEN,
     jsyaml.load(fs.readFileSync('resources/chat-commands.yaml', 'utf8')),
-    obsClient
+    obsClient,
+    twitchClient,
 )
 
 obsClient.start()
@@ -31,6 +34,8 @@ chatbot.start()
 
 startServer(targetLogin, CLIENT_ID, CLIENT_SECRET)
 
+/* if you uncomment this, program will ping twitch and update 
+ * local files with stream updates
 let filePath = path.join(__dirname, 'obs-files')
 let twitchClient = new Twitch(CLIENT_ID, CLIENT_SECRET)
 let liveStreamer = new LiveStreamer(
@@ -38,3 +43,4 @@ let liveStreamer = new LiveStreamer(
     twitchClient
 )
 liveStreamer.startFileStream(filePath)
+*/
