@@ -12,10 +12,9 @@ const WATCHER_MAX = 10
 const FOLLOWER_MAX = 100
 
 const CONTESTS = {
-  debate: "The winner of the debate.",
-  tech: "Best technical arguments.",
-  style: "Who got style?",
-  
+  debate: "The winner of the debate",
+  tech: "Best technical arguments",
+  style: "Who got style",
 }
 
 const CANDIDATES = {
@@ -94,15 +93,16 @@ class DebateMonitor {
       })
     })
 
+    // Talley scores for each contest
     Object.keys(votes).forEach(username => {
       votes[username].forEach(vote => {
         contests[vote.contest].find(el => el.candidate === vote.candidate).score += vote.score
       })
     })
 
+    // Write out contest .txt files for OBS
     Object.keys(contests).forEach(contestKey => {
       let out = ""
-      let contestName = CONTESTS[contestKey]
       let votes = contests[contestKey]
       out += `Live "${contestKey}" Rankings\n\n`
       votes.sort((a, b) => {
@@ -116,6 +116,30 @@ class DebateMonitor {
       console.log(`saving scoreboard for ${contestKey} at ${filePath}`)
       fs.writeFileSync(filePath, out, 'utf8')
     })
+
+    // Write out voter report
+    let voters = []
+    Object.keys(votes).forEach(username => {
+      let userVotes = votes[username]
+      let totalVotes = userVotes.reduce((acc, curr) => {
+        return acc += curr.score
+      }, 0)
+      voters.push({
+        username: username,
+        points: totalVotes,
+      })
+    })
+    let out = "Voters:\n"
+    voters.sort((a, b) => {
+      if (a.points > b.points) return -1
+      if (a.points < b.points) return 1
+      return 0
+    }).forEach(voter => {
+      out += `${voter.points}\t${voter.username}\n`
+    })
+    let filePath = path.join(me.path, `voters.txt`)
+    console.log(`saving voter scoreboard at ${filePath}`)
+      fs.writeFileSync(filePath, out, 'utf8')
   }
 
   validateVote(vote) {
