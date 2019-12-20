@@ -21,7 +21,7 @@ class Chatbot {
     this.oath = oath
     this.commands = commands
     this.obsClient = obsClient
-    this.debateMonitor = new DebateMonitor('obs-files/debate.yml', twitchClient)
+    this.debateMonitor = new DebateMonitor('obs-files', twitchClient)
   }
 
   start() {
@@ -120,14 +120,40 @@ class Chatbot {
       this.obsClient.window()
     } else if (commandName === '!vote') {
       let me = this
-      console.log('voting...')
-      this.debateMonitor.vote(args, context, function(err, output) {
+      this.debateMonitor.vote(args, context, function(err, message, result) {
+        console.log(message)
         if (err) {
-          console.error(err)
-          me.client.say(target, err)
+          console.log(`whispering to ${context.username}...`)
+          let errorResponse = me.debateMonitor.generateErrorMessage(err)
+          console.log(errorResponse)
+          me.client.whisper(
+            context.username, 
+            errorResponse
+          )
+          me.client.say(target, me.debateMonitor.usage())
+        } else if (message == "help") {
+          console.log('help')
+          me.client.say(target, me.debateMonitor.usage())
+        } else if (message == "votes") {
+          let msgOut = ""
+          Object.keys(result).forEach(key => {
+            let username = key
+            let votes = result[key]
+            votes.forEach(v => {
+              msgOut += `${username} gave ${v.score} to ${v.candidate}\n`
+            })
+          })
+          me.client.say(target, msgOut)
+        } else if (message == "candidates") {
+          Object.keys(result).forEach(key => {
+            me.client.say(target, `Use "${key}" to vote for ${result[key]}`)
+          })
+        } else if (message == "score") {
+
         } else {
-          console.log(output)
-          me.client.say(target, output)
+          // vote success
+          me.client.whisper(context.username, message)
+          me.client.say(target, `${result.score} ${result.contest} points for ${result.candidate}!`)
         }
       })
     } else {
