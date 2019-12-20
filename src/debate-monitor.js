@@ -8,7 +8,7 @@ const INITIAL_CONFIG = {
 }
 
 const WATCHER_MAX = 10
-const FOLLOWER_MAX = 50
+const FOLLOWER_MAX = 100
 
 const CONTESTS = {
   debate: "The winner of the debate.",
@@ -62,6 +62,16 @@ class DebateMonitor {
     return `There was a problem with your vote! The error was "${err}"\n ${this.usage()} `       
   }
 
+  userVoteCount(username) {
+    let count = 0
+    let votes = this.data.votes[username]
+    if (!votes) return 0
+    votes.forEach(vote => {
+      count += vote.score
+    })
+    return count
+  }
+
   createScoreboard() {
     let me = this
     let contests = {}
@@ -106,9 +116,11 @@ class DebateMonitor {
     })
   }
 
-  validateVote(vote, max) {
+  validateVote(vote) {
     // Check score
-    if (Number.isNaN(vote.score) || ! Number.isInteger(vote.score)) {
+    if (Number.isNaN(vote.score) 
+    || ! Number.isInteger(vote.score)
+    || vote.score < 1) {
       this.error = new Error(`Invalid score ${vote.score}`)
       return false
     }
@@ -120,6 +132,17 @@ class DebateMonitor {
     // Check contest
     if (Object.keys(CONTESTS).indexOf(vote.contest.toLowerCase()) < 0) {
       this.error = new Error(`Invalid contest ${vote.contest}`)
+      return false
+    }
+    return true
+  }
+
+  validateVoter(username, vote, max) {
+    console.log(username)
+    console.log(vote)
+    let currentVotes = this.userVoteCount(username)
+    if (currentVotes + vote.score > max) {
+      this.error = new Error(`User has breached max votes of ${max}`)
       return false
     }
     return true
@@ -151,7 +174,8 @@ class DebateMonitor {
           candidate: args[1],
           contest: args[2] || 'debate',
         }
-        if (me.validateVote(vote, voteMax)) {
+        if (me.validateVote(vote) 
+        && me.validateVoter(context.username, vote, voteMax)) {
           console.log('voting...')
           me.data.votes[context.username].push(vote)
           me.save(me.data)
