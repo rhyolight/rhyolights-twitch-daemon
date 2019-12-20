@@ -120,9 +120,15 @@ class Chatbot {
       this.obsClient.window()
     } else if (commandName === '!vote') {
       let me = this
-      this.debateMonitor.vote(args, context, function(output) {
-        console.log(output)
-        me.client.say(target, output)
+      console.log('voting...')
+      this.debateMonitor.vote(args, context, function(err, output) {
+        if (err) {
+          console.error(err)
+          me.client.say(target, err)
+        } else {
+          console.log(output)
+          me.client.say(target, output)
+        }
       })
     } else {
       // If the command is known, let's execute it

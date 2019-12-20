@@ -36,6 +36,8 @@ class Twitch {
     }
 
     _getRequest(url, qs, cb) {
+        console.info(url)
+        console.info(qs)
         request(url, {
             headers: {
                 'Client-ID': this.clientId,

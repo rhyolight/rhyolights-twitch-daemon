@@ -34,31 +34,60 @@ class DebateMonitor {
     }
   }
 
+  validateVote(vote) {
+    // score is an integer
+    if (! Number.isInteger(vote.score)) {
+      this.error = new Error(`Invalid score ${vote.score}`)
+      return false
+    }
+    return true
+  }
+
   vote(args, context, cb) {
     let voteMax = WATCHER_MAX
     let me = this
 
-    const command = args[0]
-
-    if (command == 'list') {
+    if (args[0] == 'list') {
       let out = ""
-      me.data.votes.forEach(d => {
-        out += `${d.voter} gave ${d.vote[0]} to ${d.vote[1]}\n              `
+      Object.keys(me.data.votes).forEach(key => {
+        let username = key
+        let votes = me.data.votes[key]
+        votes.forEach(vote => {
+          out += `${username} gave ${vote.score} to ${vote.candidate}\n`
+        })
       })
-      cb(out)
+      cb(null, out)
     } else {
-      this.twitch.userFollows('53666502', context['user-id'], function(resp) {
+      
+      let userFollow = function(resp) {
+        console.log(arguments)
+        console.log(resp)
         if (resp) {
           voteMax = FOLLOWER_MAX
         }
-        me.data.votes.push({
-          voter: context.username,
-          vote: args,
-        })
-        me.save(me.data)
-        cb("You voted.")
-      })
-  
+        if (! me.data.votes[context.username]) {
+          me.data.votes[context.username] = []
+        }
+        let vote = {
+          score: parseInt(args[0]),
+          candidate: args[1],
+        }
+        if (me.validateVote(vote)) {
+          me.data.votes[context.username].push(vote)
+          me.save(me.data)
+          cb(null, "You voted.")
+        } else {
+          cb(me.error)
+        }
+      }
+
+      let myId = '53666502'
+
+      if (context['user-id'] == myId) {
+        userFollow(true)
+      } else {
+        this.twitch.userFollows(myId, context['user-id'], userFollow)
+      }
     }
 
   }
