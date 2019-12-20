@@ -133,27 +133,29 @@ class Chatbot {
           me.client.say(target, me.debateMonitor.usage())
         } else if (message == "help") {
           console.log('help')
-          me.client.say(target, me.debateMonitor.usage())
+          me.client.say(target, result)
         } else if (message == "votes") {
           let msgOut = ""
-          Object.keys(result).forEach(key => {
-            let username = key
-            let votes = result[key]
-            votes.forEach(v => {
-              msgOut += `${username} gave ${v.score} to ${v.candidate}\n`
-            })
+          result.votes.forEach(v => {
+            msgOut += `you gave ${v.score} ${v.contest} points to ${v.candidate}\n `
           })
-          me.client.say(target, msgOut)
+          msgOut += `you have ${result.left} points left`
+          me.client.whisper(context.username, msgOut)
         } else if (message == "candidates") {
           Object.keys(result).forEach(key => {
             me.client.say(target, `Use "${key}" to vote for ${result[key]}`)
           })
-        } else if (message == "score") {
-
+        } else if (message == "contests") {
+          Object.keys(result).forEach(key => {
+            me.client.say(target, `Use "${key}" to vote in for "${result[key]}"`)
+          })
+        } else if (message == "clear") {
+          // pass
         } else {
           // vote success
           me.client.whisper(context.username, message)
-          me.client.say(target, `${result.score} ${result.contest} points for ${result.candidate}!`)
+          let msg = `${result.score} ${result.contest} points for ${result.candidate}!\n`
+          me.client.say(target, msg)
         }
       })
     } else {
