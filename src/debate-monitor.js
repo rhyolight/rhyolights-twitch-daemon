@@ -81,7 +81,6 @@ class DebateMonitor {
     let contests = {}
     let votes = this.data.votes
 
-
     // Prime the data structure
     Object.keys(CONTESTS).forEach(contestKey => {
       contests[contestKey] = []
@@ -164,8 +163,6 @@ class DebateMonitor {
   }
 
   validateVoter(username, vote, max) {
-    console.log(username)
-    console.log(vote)
     let currentVotes = this.userVoteCount(username)
     if (currentVotes + vote.score > max) {
       this.error = new Error(`User has breached max votes of ${max}`)
@@ -189,8 +186,6 @@ class DebateMonitor {
       if (args[0] == 'votes') {
         let data = {}
         data.votes = me.data.votes[context.username]
-        console.log(voteMax)
-        console.log(me.userVoteCount(context.username))
         data.left = voteMax - me.userVoteCount(context.username)
         cb(null, "votes", data)
       } else if (args[0] == 'candidates') {
@@ -198,7 +193,6 @@ class DebateMonitor {
       } else if (args[0] == 'contests') {
         cb(null, "contests", CONTESTS)
       } else if (args[0] == 'clear') {
-        // if (context.username !== 'rhyolight_') return cb(new Error('UNAUTHORIZED'))
         me.data.votes[context.username] = []
         me.save(me.data)
         cb(null, "clear")
