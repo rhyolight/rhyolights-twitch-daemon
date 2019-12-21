@@ -20,7 +20,7 @@ const CONTESTS = {
 const CANDIDATES = {
   gary: "Gary Marcus",
   yoshua: "Yoshua Bengio",
-  yann: "Yann LeCun",
+  // yann: "Yann LeCun",
 }
 
 class DebateMonitor {
@@ -63,10 +63,6 @@ class DebateMonitor {
     `
   }
   
-  generateErrorMessage(err) {
-    return `There was a problem with your vote! The error was "${err}"\n ${this.usage()} `       
-  }
-
   userVoteCount(username) {
     let count = 0
     let votes = this.data.votes[username]
@@ -104,13 +100,13 @@ class DebateMonitor {
     Object.keys(contests).forEach(contestKey => {
       let out = ""
       let votes = contests[contestKey]
-      out += `Live "${contestKey}" Rankings\n\n`
+      out += `Live "${contestKey}" Rankings\n`
       votes.sort((a, b) => {
         if (a.score > b.score) return -1
         if (a.score < b.score) return 1
         return 0
       }).forEach(vote => {
-        out += `\t${vote.score}\t${CANDIDATES[vote.candidate]}\n`
+        out += `\t${vote.score.toString().padEnd(5)}\t${CANDIDATES[vote.candidate]}\n`
       })
       let filePath = path.join(me.path, `${contestKey}.txt`)
       console.log(`saving scoreboard for ${contestKey} at ${filePath}`)
@@ -129,13 +125,13 @@ class DebateMonitor {
         points: totalVotes,
       })
     })
-    let out = "Voters:\n"
+    let out = "Top Voters:\n"
     voters.sort((a, b) => {
       if (a.points > b.points) return -1
       if (a.points < b.points) return 1
       return 0
     }).forEach(voter => {
-      out += `${voter.points}\t${voter.username}\n`
+      out += `${voter.points.toString().padStart(4)}\t${voter.username}\n`
     })
     let filePath = path.join(me.path, `voters.txt`)
     console.log(`saving voter scoreboard at ${filePath}`)
@@ -214,9 +210,8 @@ class DebateMonitor {
             me.data.votes[context.username].push(vote)
             me.save(me.data)
             vote.left = voteMax - me.userVoteCount(context.username)
-            cb(null, `you have ${vote.left} points remaining`, vote)
+            cb(null, "success", vote)
           } else {
-            console.log('INVALID VOTE!')
             cb(me.error)
           }
       }

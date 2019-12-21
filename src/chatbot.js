@@ -57,7 +57,6 @@ class Chatbot {
   }
 
   countdown(target, time) {
-    console.log(time)
     let duration = parseDuration(time)
     let remaining = duration
     this.client.say(target, `Starts in: ${remaining}ms`)
@@ -87,10 +86,11 @@ class Chatbot {
     }
     const args = msg.trim().split(/\s+/)
     const commandName = args.shift();
+    const username = context.username
 
-    console.log(`Recieved message "${msg}"`)
-    console.log(`command: "${commandName}"`)
-    console.log(`args: ${args}`)
+    // console.log(`Recieved message "${msg}"`)
+    // console.log(`command: "${commandName}"`)
+    // console.log(`args: ${args}`)
 
     // Ignore anything not starting with '!'
     if (!commandName.startsWith('!')) {
@@ -105,12 +105,12 @@ class Chatbot {
       this.countdown(target, args[0])
       // The '!sound' command is special
     } else if (commandName === '!sound') {
-      this.playSound(args[0])
-      // if (context.subscriber) {
-      //   this.playSound(args[0])
-      // } else {
-      //   this.client.say(target, 'You must be a subscriber to play sounds.')
-      // }
+      // this.playSound(args[0])
+      if (context.subscriber) {
+        this.playSound(args[0])
+      } else {
+        this.client.say(target, 'You must be a subscriber to play sounds.')
+      }
     } else if (commandName === '!sounds') {
       this.listSounds(target)
     } else if (commandName === '!mindblown') {
@@ -121,21 +121,17 @@ class Chatbot {
     } else if (commandName === '!vote') {
       let me = this
       this.debateMonitor.vote(args, context, function(err, message, result) {
-        console.log(message)
         if (err) {
-          console.log(`whispering to ${context.username}...`)
-          let errorResponse = me.debateMonitor.generateErrorMessage(err)
-          console.log(errorResponse)
-          me.client.whisper(
-            context.username, 
-            errorResponse
+          me.client.say(
+            target, 
+            `Invalid vote from ${username}: ${err}\n (use "!vote help")`
           )
-          me.client.say(target, me.debateMonitor.usage())
+          // me.client.say(target, me.debateMonitor.usage())
         } else if (message == "help") {
-          console.log('help')
+          // console.log('help')
           me.client.say(target, result)
         } else if (message == "votes") {
-          let msgOut = ""
+          let msgOut = `${username}`
           result.votes.forEach(v => {
             msgOut += `you gave ${v.score} ${v.contest} points to ${v.candidate}\n `
           })
@@ -151,11 +147,13 @@ class Chatbot {
           })
         } else if (message == "clear") {
           // pass
+          me.client.say(target, `${username} cleared all their points!`)
         } else {
           // vote success
-          me.client.whisper(context.username, message)
-          let msg = `${result.score} ${result.contest} points for ${result.candidate}!\n`
-          me.client.say(target, msg)
+          me.client.say(target,
+            `${username} gave ${result.score} ${result.contest} points to ${result.candidate}!\n 
+            (and has ${result.left} points left)`
+          )
         }
       })
     } else {
