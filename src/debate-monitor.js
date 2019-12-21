@@ -32,11 +32,11 @@ class DebateMonitor {
   load() {
     console.log('load')
     let debateFile = path.join(this.path, 'debate.yml')
-    this.data = jsyaml.load(fs.readFileSync(debateFile, 'utf8'))
+    let data = jsyaml.load(fs.readFileSync(debateFile, 'utf8'))
+    this.data = data || { votes: {} }
   }
 
   save(data) {
-    console.log('save')
     let debateFile = path.join(this.path, 'debate.yml')
     fs.writeFileSync(debateFile, jsyaml.dump(data), 'utf8')
     this.createScoreboard()
