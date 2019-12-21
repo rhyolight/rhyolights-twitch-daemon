@@ -3,9 +3,9 @@ const fs = require('fs')
 const jsyaml = require('js-yaml')
 
 const INITIAL_CONFIG = {
-  voters: [],
-  votes: [],
+  votes: {},
 }
+
 let myId = '53666502'
 
 const WATCHER_MAX = 10
@@ -20,6 +20,7 @@ const CONTESTS = {
 const CANDIDATES = {
   gary: "Gary Marcus",
   yoshua: "Yoshua Bengio",
+  yann: "Yann LeCun",
 }
 
 class DebateMonitor {
@@ -33,7 +34,7 @@ class DebateMonitor {
     console.log('load')
     let debateFile = path.join(this.path, 'debate.yml')
     let data = jsyaml.load(fs.readFileSync(debateFile, 'utf8'))
-    this.data = data || { votes: {} }
+    this.data = data || INITIAL_CONFIG
   }
 
   save(data) {
