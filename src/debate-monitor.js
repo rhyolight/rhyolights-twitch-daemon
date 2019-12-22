@@ -12,14 +12,21 @@ const WATCHER_MAX = 10
 const FOLLOWER_MAX = 100
 
 const CONTESTS = {
-  debate: "The winner of the debate",
-  tech: "Best technical arguments",
-  style: "Who got style",
+  // debate: "The winner of the debate",
+  // tech: "Best technical arguments",
+  // style: "Who got style",
+  overall: "best overall",
+  style: "best costume",
+  control: "play control",
+  attack: "best attacks",
 }
 
 const CANDIDATES = {
-  gary: "Gary Marcus",
-  yoshua: "Yoshua Bengio",
+  sonic: "Sonic Hedgehog",
+  mario: "Mario",
+  samus: "Samus Aran",
+  // gary: "Gary Marcus",
+  // yoshua: "Yoshua Bengio",
   // yann: "Yann LeCun",
 }
 
@@ -53,7 +60,7 @@ class DebateMonitor {
 
   usage() {
     return `
-    The Vote command is "!vote <points> <candidate> [contest]"\n                          
+    The Vote command is "!vote <points> <first name> [contest]"\n                          
     The default [contest] is the main debate.\n                  
     Use "!vote candidates" and "!vote contests" for more info.                  
     Followers get ${FOLLOWER_MAX} points to award. Everyone else gets 
@@ -88,10 +95,11 @@ class DebateMonitor {
         })
       })
     })
-
+    // console.log(contests)
     // Talley scores for each contest
     Object.keys(votes).forEach(username => {
       votes[username].forEach(vote => {
+        // console.log(vote)
         contests[vote.contest].find(el => el.candidate === vote.candidate).score += vote.score
       })
     })
@@ -100,18 +108,44 @@ class DebateMonitor {
     Object.keys(contests).forEach(contestKey => {
       let out = ""
       let votes = contests[contestKey]
-      out += `Live "${contestKey}" Rankings\n`
+      out += `${contestKey.toUpperCase()} ranking:\n`
       votes.sort((a, b) => {
         if (a.score > b.score) return -1
         if (a.score < b.score) return 1
         return 0
       }).forEach(vote => {
-        out += `\t${vote.score.toString().padEnd(5)}\t${CANDIDATES[vote.candidate]}\n`
+        if (vote.contest === contestKey) overall[contestKey] += vote.score
+        out += `\t${CANDIDATES[vote.candidate].padEnd(15)}${vote.score.toString().padStart(5)}\n`
       })
       let filePath = path.join(me.path, `${contestKey}.txt`)
       console.log(`saving scoreboard for ${contestKey} at ${filePath}`)
       fs.writeFileSync(filePath, out, 'utf8')
     })
+
+    let overall = []
+    Object.keys(CANDIDATES).forEach(candidateKey => {
+      overall.push({name: candidateKey, votes: 0})
+    })
+    Object.keys(votes).forEach(username => {
+      votes[username].forEach(vote => {
+        overall.find(c => c.name === vote.candidate).votes += vote.score
+      })
+    })
+
+    // Write out overall.txt report
+    let out = "Overall Scores:\n"
+    overall.sort((a, b) => {
+      if (a.votes > b.votes) return -1
+      if (a.votes < b.votes) return 1
+      return 0
+    }).forEach(c => {
+      let name = CANDIDATES[c.name].padEnd(15)
+      let score = (""+c.votes).padStart(5)
+      out += `\t${name}${score}\n`
+    })
+    let filePath = path.join(me.path, `overall.txt`)
+    console.log(`saving overall scoreboard at ${filePath}`)
+    fs.writeFileSync(filePath, out, 'utf8')
 
     // Write out voter report
     let voters = []
@@ -125,7 +159,7 @@ class DebateMonitor {
         points: totalVotes,
       })
     })
-    let out = "Top Voters:\n"
+    out = "Top Voters:\n"
     voters.sort((a, b) => {
       if (a.points > b.points) return -1
       if (a.points < b.points) return 1
@@ -133,7 +167,7 @@ class DebateMonitor {
     }).forEach(voter => {
       out += `${voter.points.toString().padStart(4)}\t${voter.username}\n`
     })
-    let filePath = path.join(me.path, `voters.txt`)
+    filePath = path.join(me.path, `voters.txt`)
     console.log(`saving voter scoreboard at ${filePath}`)
       fs.writeFileSync(filePath, out, 'utf8')
   }
@@ -152,17 +186,19 @@ class DebateMonitor {
       return false
     }
     // Check contest
-    if (Object.keys(CONTESTS).indexOf(vote.contest.toLowerCase()) < 0) {
+    if (! vote.contest || Object.keys(CONTESTS).indexOf(vote.contest.toLowerCase()) < 0) {
       this.error = new Error(`Invalid contest ${vote.contest}`)
       return false
     }
+    vote.candidate = vote.candidate.toLowerCase()
+    vote.contest = vote.contest.toLowerCase()
     return true
   }
 
   validateVoter(username, vote, max) {
     let currentVotes = this.userVoteCount(username)
     if (currentVotes + vote.score > max) {
-      this.error = new Error(`User has breached max votes of ${max}`)
+      this.error = new Error(`User has breached max votes of ${max}! (follow rhyolight_ for more votes)`)
       return false
     }
     return true
@@ -171,7 +207,8 @@ class DebateMonitor {
   userFollowsMe(context, cb) {
     let userId = context['user-id']
     if (userId == myId) return cb(null, true)
-    this.twitch.userFollows(myId, userId, cb)
+    // this.twitch.userFollows(myId, userId, cb)
+    cb(true)
   }
 
   vote(args, context, cb) {
@@ -202,7 +239,7 @@ class DebateMonitor {
           let vote = {
             score: parseInt(args[0]),
             candidate: args[1],
-            contest: args[2] || 'debate',
+            contest: args[2],
           }
           if (me.validateVote(vote) 
           && me.validateVoter(context.username, vote, voteMax)) {
