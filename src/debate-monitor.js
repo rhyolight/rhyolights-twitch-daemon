@@ -12,22 +12,23 @@ const WATCHER_MAX = 10
 const FOLLOWER_MAX = 100
 
 const CONTESTS = {
-  // debate: "The winner of the debate",
-  // tech: "Best technical arguments",
-  // style: "Who got style",
   overall: "best overall",
-  style: "best costume",
-  control: "play control",
-  attack: "best attacks",
+  technical: "best technical arguments",
+  delivery: "best delivery of arguments",
+  science: "best grounding in hard science",
+  rebuttal: "best rebuttals",
+  // style: "best costume",
+  // control: "play control",
+  // attack: "best attacks",
 }
 
 const CANDIDATES = {
-  sonic: "Sonic Hedgehog",
-  mario: "Mario",
-  samus: "Samus Aran",
-  // gary: "Gary Marcus",
+  gary: "Gary Marcus",
   // yoshua: "Yoshua Bengio",
-  // yann: "Yann LeCun",
+  yann: "Yann LeCun",
+  // sonic: "Sonic Hedgehog",
+  // mario: "Mario",
+  // samus: "Samus Aran",
 }
 
 class DebateMonitor {
@@ -95,12 +96,12 @@ class DebateMonitor {
         })
       })
     })
-    // console.log(contests)
     // Talley scores for each contest
     Object.keys(votes).forEach(username => {
       votes[username].forEach(vote => {
-        // console.log(vote)
-        contests[vote.contest].find(el => el.candidate === vote.candidate).score += vote.score
+        let contest = contests[vote.contest]
+        if (! contest) throw new Error(`Missing contest ${vote.contest}`)
+        contest.find(el => el.candidate === vote.candidate).score += vote.score
       })
     })
 
@@ -108,7 +109,7 @@ class DebateMonitor {
     Object.keys(contests).forEach(contestKey => {
       let out = ""
       let votes = contests[contestKey]
-      out += `${contestKey.toUpperCase()} ranking:\n`
+      out += `${contestKey.toUpperCase()} contest:\n`
       votes.sort((a, b) => {
         if (a.score > b.score) return -1
         if (a.score < b.score) return 1
@@ -118,10 +119,11 @@ class DebateMonitor {
         out += `\t${CANDIDATES[vote.candidate].padEnd(15)}${vote.score.toString().padStart(5)}\n`
       })
       let filePath = path.join(me.path, `${contestKey}.txt`)
-      console.log(`saving scoreboard for ${contestKey} at ${filePath}`)
+      // console.log(`saving scoreboard for ${contestKey} at ${filePath}`)
       fs.writeFileSync(filePath, out, 'utf8')
     })
 
+    // Tally overall scores for main report
     let overall = []
     Object.keys(CANDIDATES).forEach(candidateKey => {
       overall.push({name: candidateKey, votes: 0})
@@ -168,7 +170,7 @@ class DebateMonitor {
       out += `${voter.points.toString().padStart(4)}\t${voter.username}\n`
     })
     filePath = path.join(me.path, `voters.txt`)
-    console.log(`saving voter scoreboard at ${filePath}`)
+    // console.log(`saving voter scoreboard at ${filePath}`)
       fs.writeFileSync(filePath, out, 'utf8')
   }
 
@@ -207,8 +209,8 @@ class DebateMonitor {
   userFollowsMe(context, cb) {
     let userId = context['user-id']
     if (userId == myId) return cb(null, true)
-    // this.twitch.userFollows(myId, userId, cb)
-    cb(true)
+    this.twitch.userFollows(myId, userId, cb)
+    // cb(true)
   }
 
   vote(args, context, cb) {
