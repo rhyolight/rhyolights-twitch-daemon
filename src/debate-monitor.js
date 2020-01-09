@@ -24,8 +24,8 @@ const CONTESTS = {
 
 const CANDIDATES = {
   gary: "Gary Marcus",
-  // yoshua: "Yoshua Bengio",
-  yann: "Yann LeCun",
+  yoshua: "Yoshua Bengio",
+  // yann: "Yann LeCun",
   // sonic: "Sonic Hedgehog",
   // mario: "Mario",
   // samus: "Samus Aran",
@@ -61,13 +61,10 @@ class DebateMonitor {
 
   usage() {
     return `
-    The Vote command is "!vote <points> <first name> [contest]"\n                          
-    The default [contest] is the main debate.\n                  
-    Use "!vote candidates" and "!vote contests" for more info.                  
-    Followers get ${FOLLOWER_MAX} points to award. Everyone else gets 
-    ${WATCHER_MAX}.                       
-    Use "!vote clear" to clear all votes and start fresh.
-    Use "!vote votes" to see your votes and remaining points.
+    The Vote command is "!vote <points> <first name> <contest>"\n
+    Everyone gets 100 points.\n
+    Use "!vote clear" to clear all votes and start fresh.\n
+    Use "!vote votes" to see your votes and remaining points.\n
     `
   }
   
@@ -209,8 +206,8 @@ class DebateMonitor {
   userFollowsMe(context, cb) {
     let userId = context['user-id']
     if (userId == myId) return cb(null, true)
-    this.twitch.userFollows(myId, userId, cb)
-    // cb(true)
+    // this.twitch.userFollows(myId, userId, cb)
+    cb(true)
   }
 
   vote(args, context, cb) {
